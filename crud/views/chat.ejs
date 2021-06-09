@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+     <!-- CSS only -->
+     <link
+     href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+     rel="stylesheet"
+     integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+     crossorigin="anonymous"
+   />
+    <link rel="stylesheet" href="style.css">
+    <style>
+        button{
+            background: #8f8be8;
+            color: #fff;
+            padding: 1.5rem;
+            font-size: 20px;
+            outline: none;
+            border: none;
+        }
+
+        .navbar-brand{
+                width: 5%;
+            }
+
+        body{background-color: #fff;}
+
+        @media screen and (max-width:600px){
+            body{padding: 0;display: block;}
+
+            section.chat__section {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .message__area{
+                height: 70vh;
+            }
+
+            .mobile_view{
+                display: flex;
+            }
+
+            .navbar-brand{
+                width: 10%;
+            }
+
+            .navbar{
+                margin-bottom: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body onload="scrollToBottom()">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+        <div class="container-fluid mobile_view">
+          <a class="navbar-brand" href="#"><img src="chat.png" alt=""></a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/chat/logout"
+                  >Log out</a
+                >
+              </li>
+             
+            </ul>
+          </div>
+        </div>
+      </nav>
+    
+    <section class="chat__section" style="margin-left: auto; margin-right: auto;">
+        <div class="brand">
+            
+            <div>
+                <h1>Chat</h1>
+                <p id="typing_text" style="color: #787986;padding-left: 10px;"></p>
+            </div>
+        </div>
+        <div class="message__area">
+            <% message.forEach((item) => { 
+                if(item.user_id == user.id){
+            %>
+                
+                <div class="outgoing message">
+                    <h4><%= item.name %></h4>
+                    <p><%= item.message %></p>
+                </div>
+
+            <% }else{ %>
+
+                <div class="incoming message">
+                    <h4><%= item.name %></h4>
+                    <p><%= item.message %></p>
+                </div>
+
+            <% }
+            }) %>
+        </div>
+        <div style="display:flex;">
+            <textarea id="textarea" cols="30" rows="1" placeholder="Write your message"></textarea>
+            <button id="sendBtn" onclick="sendBtnMsg()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </section>
+    <audio src="tone.mp3" id="msg_tone"></audio>
+</body>
+<script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+    var person = "<%= user.name %>";
+    var person_id = "<%= user.id %>";
+</script>
+<script src="script.js"></script>
+<!-- JavaScript Bundle with Popper -->
+<script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+crossorigin="anonymous"
+></script>
+</html>
